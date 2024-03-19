@@ -42,7 +42,10 @@ def read_requirements(path):
 
 
 requirements = read_requirements("requirements/prod.txt")
+
 extra_requirements_dev = read_requirements("requirements/dev.txt")
+extra_requirements_gpu = read_requirements("requirements/gpu.txt")
+extra_requirements_cpu = read_requirements("requirements/cpu.txt")
 extra_requirements_cubit = read_requirements("requirements/cubit.txt")
 
 here = path.abspath(path.dirname(__file__))
@@ -76,6 +79,8 @@ setup(
     install_requires=requirements,
     extras_require={
         "dev": extra_requirements_dev,
+        "cpu": extra_requirements_cpu,
+        "gpu": extra_requirements_gpu,
     },
     scripts=["bin/btcli"],
     classifiers=[
