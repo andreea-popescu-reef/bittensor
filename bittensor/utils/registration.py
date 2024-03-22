@@ -12,13 +12,24 @@ from typing import Any, Callable, Dict, List, Optional, Tuple, Union
 
 import backoff
 import bittensor
-import torch
 from Crypto.Hash import keccak
 from rich import console as rich_console
 from rich import status as rich_status
 
 from .formatting import get_human_readable, millify
 from ._register_cuda import solve_cuda
+
+
+def try_import_torch():
+    try:
+        import torch
+
+        return True
+    except ImportError:
+        bittensor.__console__.print(
+            "Error: Could not import torch package. Please install bittensor[torch]"
+        )
+    return False
 
 
 class CUDAException(Exception):
