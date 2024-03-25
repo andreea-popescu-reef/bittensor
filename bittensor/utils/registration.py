@@ -19,17 +19,17 @@ from rich import status as rich_status
 from .formatting import get_human_readable, millify
 from ._register_cuda import solve_cuda
 
+try:
+    import torch
+except ImportError:
+    torch = None
 
-def try_import_torch():
-    try:
-        import torch
-
-        return True
-    except ImportError:
+def maybe_get_torch():
+    if torch is None:
         bittensor.__console__.print(
             "Error: Could not import torch package. Please install bittensor[torch]"
         )
-    return False
+    return torch
 
 
 class CUDAException(Exception):
